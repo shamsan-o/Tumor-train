@@ -5,19 +5,9 @@ import torch
 
 
 class ValidationLoss(HookBase):
-    """
-    A hook that computes validation loss during training.
-
-    Attributes:
-        cfg (CfgNode): The detectron2 config node.
-        _loader (iterator): An iterator over the validation dataset.
-    """
 
     def __init__(self, cfg):
-        """
-        Args:
-            cfg (CfgNode): The detectron2 config node.
-        """
+ 
         super().__init__()
         self.cfg = cfg.clone()
         # Switch to the validation dataset
@@ -26,9 +16,7 @@ class ValidationLoss(HookBase):
         self._loader = iter(build_detection_train_loader(self.cfg))
 
     def after_step(self):
-        """
-        Computes the validation loss after each training step.
-        """
+
         # Get the next batch of data from the validation data loader
         data = next(self._loader)
         with torch.no_grad():
